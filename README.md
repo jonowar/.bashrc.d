@@ -16,6 +16,6 @@ for file in `find $HOME/.bashrc.d/modules/* | grep "/[0-9]\..*[0-9a-zA-Z]$"`; do
 ```
 
 ## Adding stuff
-Create a new file with a filename in the format of `<order in which this will be run>.<brief description>` in the `modules` directory. Somet
+Create a new file with a filename in the format of `<order in which this will be run>.<brief description>` in the `modules` directory.
 
 That's it!

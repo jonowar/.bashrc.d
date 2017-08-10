@@ -27,7 +27,7 @@ source $git_prompt_file
 
 # configuring git ps1
 git_prompt_ps1='$(__git_ps1 "(%s)")\$ '
-PROMPT_COMMAND="__git_ps1 \"$PS1\" \"\\\$ \""
+export PROMPT_COMMAND="__git_ps1 \"$PS1\" \"\\\$ \";$PROMPT_COMMAND"
 GIT_PS1_SHOWCOLORHINTS=true # use color in git_ps1
 GIT_PS1_SHOWDIRTYSTATE=true # * = unstaged, + = staged
 GIT_PS1_SHOWSTASHSTATE=true # $ = something stashed

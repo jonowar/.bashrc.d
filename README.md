@@ -5,17 +5,11 @@ An attempt to organize my .bashrc
 
 ```bash
 git clone git://github.com/jonowar/.bashrc.d.git ~/.bashrc.d
-.bashrc.d/install.sh
+ln -s ~/.bashrc.d/dot-bashrc .bashrc
 source ~/.bashrc
 ```
 
-This adds the following to your .bashrc:
-```
-# added by .bashrc.d/install.sh
-for file in `find $HOME/.bashrc.d/modules/* | grep "/[0-9]\..*[0-9a-zA-Z]$"`; do echo $file; source $file; done
-```
-
 ## Adding stuff
-Create a new file with a filename in the format of `<order in which this will be run>.<brief description>` in the `modules` directory.
+Create a new file with a filename in the format of `<order in which this will be run>.<brief description>.sh` in the `modules` directory.
 
 That's it!

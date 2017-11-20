@@ -37,3 +37,8 @@ GIT_PS1_SHOWUPSTREAM="auto" # < = behind, > = ahead, <> = diverged, = = no diffe
 
 # alias lg command to show git log in a pretty format
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# fetch and checkout specific PRs
+git config --global alias.fetch-pr "!bash -xc 'git fetch upstream pull/\$0/head:\${1:-pr-\$0}'"
+git config --global alias.checkout-pr "!bash -xc 'git fetch-pr \$0 \${1:-pr-\$0} && git checkout \${1:-pr-\$0}'"
+git config --global alias.rebase-master "!git checkout master && git pull upstream master && git push origin master && git checkout - && git rebase master"

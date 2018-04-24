@@ -25,6 +25,21 @@ if [ ! -f $git_prompt_file ]; then
 fi
 source $git_prompt_file
 
+# SCM_BREEZE
+if [ -s "$HOME/.scm_breeze/scm_breeze.sh" ]; then
+    source "$HOME/.scm_breeze/scm_breeze.sh"
+    git_index --rebuild
+    update_scm_breeze
+else
+    echo "scm_breeze not installed. do this:
+
+    git clone git://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
+    ~/.scm_breeze/install.sh
+
+then you can delete the line that it adds to your .bashrc
+"
+fi
+
 # configuring git ps1
 git_prompt_ps1='$(__git_ps1 "(%s)")\$ '
 export PROMPT_COMMAND="__git_ps1 \"$PS1\" \"\\\$ \";$PROMPT_COMMAND"

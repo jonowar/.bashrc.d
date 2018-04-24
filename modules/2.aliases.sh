@@ -1,5 +1,6 @@
 # git
 alias g="git"
+alias grema="git rebase-master"
 
 # ls
 alias ls='ls -FGh'
@@ -21,3 +22,7 @@ alias rgrep='find . 2>/dev/null | xargs egrep --color -I 2>/dev/null'
 
 # finds
 alias f='find . -iname'
+alias a='apropos'
+
+# other
+alias emacs='emacs -nw'

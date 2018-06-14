@@ -57,3 +57,18 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 git config --global alias.fetch-pr "!bash -xc 'git fetch upstream pull/\$0/head:\${1:-pr-\$0}'"
 git config --global alias.checkout-pr "!bash -xc 'git fetch-pr \$0 \${1:-pr-\$0} && git checkout \${1:-pr-\$0}'"
 git config --global alias.rebase-master "!git checkout master && git pull upstream master && git push origin master && git checkout - && git rebase master"
+
+function checkout-remote(){
+    # args = username:branch-name
+    USER=`echo $1 | cut -d: -f1`
+    BRANCH=`echo $1 | cut -d: -f2`
+
+    REMOTE_EXISTS=`git remote -v | grep ^$USER`
+    if [ -z "$REMOTE_EXISTS" ]; then
+        REPO_NAME=`git config --get remote.origin.url | cut -d/ -f2`
+        git remote add $USER git@github.com:$USER/$REPO_NAME
+    fi
+
+    git fetch $USER
+    git checkout $USER/$BRANCH -B $BRANCH
+}

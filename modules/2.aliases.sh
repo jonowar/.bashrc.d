@@ -1,6 +1,7 @@
 # git
 alias g="git"
 alias grema="git rebase-master"
+alias gream="echo 'bash rules everything around me'; git rebase-master"
 
 # ls
 alias ls='ls -FGh'

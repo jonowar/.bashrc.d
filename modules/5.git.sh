@@ -69,6 +69,5 @@ function checkout-remote(){
         git remote add $USER git@github.com:$USER/$REPO_NAME
     fi
 
-    git fetch $USER
     git checkout $USER/$BRANCH -B $BRANCH
 }

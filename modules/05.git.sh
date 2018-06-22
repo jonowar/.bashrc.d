@@ -65,9 +65,10 @@ function checkout-remote(){
 
     REMOTE_EXISTS=`git remote -v | grep ^$USER`
     if [ -z "$REMOTE_EXISTS" ]; then
-        REPO_NAME=`git config --get remote.origin.url | cut -d/ -f2`
-        git remote add $USER git@github.com:$USER/$REPO_NAME
+        REPO_NAME=`git config --get remote.origin.url | cut -d/ -f5`
+        git remote add $USER "https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$USER/$REPO_NAME"
     fi
 
-    git checkout $USER/$BRANCH -B $BRANCH
+    git fetch $USER
+    git checkout $BRANCH
 }

@@ -42,7 +42,7 @@ fi
 
 # configuring git ps1
 git_prompt_ps1='$(__git_ps1 "(%s)")\$ '
-export PROMPT_COMMAND="__git_ps1 \"$PS1\" \"\\\$ \";$PROMPT_COMMAND"
+export PROMPT_COMMAND="__git_ps1 \"$PS1\" \"\\$HI_Purple\$$Color_Off \";$PROMPT_COMMAND"
 GIT_PS1_SHOWCOLORHINTS=true # use color in git_ps1
 GIT_PS1_SHOWDIRTYSTATE=true # * = unstaged, + = staged
 GIT_PS1_SHOWSTASHSTATE=true # $ = something stashed
@@ -56,19 +56,41 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 # fetch and checkout specific PRs
 git config --global alias.fetch-pr "!bash -xc 'git fetch upstream pull/\$0/head:\${1:-pr-\$0}'"
 git config --global alias.checkout-pr "!bash -xc 'git fetch-pr \$0 \${1:-pr-\$0} && git checkout \${1:-pr-\$0}'"
-git config --global alias.rebase-master "!git checkout master && git pull upstream master && git push origin master && git checkout - && git rebase master"
+git config --global alias.rebase-master "!git checkout master && git pull && git checkout - && git rebase master"
 
-function checkout-remote(){
-    # args = username:branch-name
-    USER=`echo $1 | cut -d: -f1`
-    BRANCH=`echo $1 | cut -d: -f2`
+function grebi(){
+    git rebase -i HEAD~$1
+}
 
-    REMOTE_EXISTS=`git remote -v | grep ^$USER`
-    if [ -z "$REMOTE_EXISTS" ]; then
-        REPO_NAME=`git config --get remote.origin.url | cut -d/ -f5`
-        git remote add $USER "https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$USER/$REPO_NAME"
-    fi
+unalias gush
+function gush(){
+    git push -f --set-upstream origin `git rev-parse --abbrev-ref HEAD`
+}
 
-    git fetch $USER
-    git checkout $BRANCH
+# Gets the url for the current git repository
+function repo_url(){
+  remote_url=$(git config --get remote.origin.url)
+  if [ "$remote_url" == "" ]
+    then
+     echo "Not a git repository or no remote.origin.url set"
+     exit 1;
+  fi
+
+  repo_url=$(echo $remote_url | sed -E "s/git@([a-z.]+)\:([a-z/-]+)\.git/https\:\/\/\1\/\2/g")
+  echo $repo_url
+}
+
+# Opens the github page for the current git repository in your browser
+function gohub() {
+  url=$(repo_url)
+  open $url
+}
+
+# Opens the github page to create a new pull request on the current branch against master
+function gopr() {
+  repo_url=$(repo_url)
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+  pr_url="$repo_url/compare/master...$branch_name?expand=1"
+
+  open $pr_url
 }

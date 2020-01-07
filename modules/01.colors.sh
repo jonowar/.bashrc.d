@@ -42,3 +42,4 @@ export HI_BG_Blue="\[\033[0;104m\]"
 export HI_BG_Purple="\[\033[10;95m\]"
 export HI_BG_Cyan="\[\033[0;106m\]"
 export HI_BG_White="\[\033[0;107m\]"
+

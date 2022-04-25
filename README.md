@@ -4,7 +4,7 @@ An attempt to organize my .bashrc
 ## Installation
 
 ```bash
-git clone git://github.com/jonowar/.bashrc.d.git ~/.bashrc.d
+git clone https://github.com/jonowar/.bashrc.d.git ~/.bashrc.d
 ln -s ~/.bashrc.d/dot-bashrc .bashrc
 source ~/.bashrc
 ```
